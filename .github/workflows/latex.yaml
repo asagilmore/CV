@@ -6,7 +6,9 @@ on:
       - "**/*.tex"
       - "**/*.bib"
       - "**/*.sty"
+      - ".github/workflows/**"
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -17,7 +19,7 @@ jobs:
       - uses: wtfjoke/setup-tectonic@v3
 
       - name: Build PDF
-        run: tectonic main.tex
+        run: tectonic asacv.tex
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
