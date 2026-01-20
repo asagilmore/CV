@@ -1,0 +1,26 @@
+name: Build LaTeX PDF
+
+on:
+  push:
+    paths:
+      - "**/*.tex"
+      - "**/*.bib"
+      - "**/*.sty"
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: wtfjoke/setup-tectonic@v3
+
+      - name: Build PDF
+        run: tectonic main.tex
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf
+          path: asa-cv.pdf
