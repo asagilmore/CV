@@ -2,13 +2,10 @@ name: Build LaTeX PDF
 
 on:
   push:
-    paths:
-      - "**/*.tex"
-      - "**/*.bib"
-      - "**/*.sty"
-      - ".github/workflows/**"
-  pull_request:
-  workflow_dispatch:
+    branches: [ main ]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -21,8 +18,15 @@ jobs:
       - name: Build PDF
         run: tectonic asacv.tex
 
-      - name: Upload PDF artifact
-        uses: actions/upload-artifact@v4
+      - name: Stage output
+        run: |
+          mkdir -p public
+          cp main.pdf public/
+
+      - name: Publish PDF branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: pdf
-          path: asa-cv.pdf
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: pdf   # or gh-pages
+          force_orphan: true
