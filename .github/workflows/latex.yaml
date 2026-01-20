@@ -21,7 +21,7 @@ jobs:
       - name: Stage output
         run: |
           mkdir -p public
-          cp main.pdf public/
+          cp asacv.pdf public/
 
       - name: Publish PDF branch
         uses: peaceiris/actions-gh-pages@v4
